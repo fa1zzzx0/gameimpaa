@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMEIMPACT | Влияние компьютерных игр на подростков</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B5CF6', /* Violet-500 */
+                        secondary: '#EC4899', /* Pink-500 */
+                        dark: '#1F2937',
+                        light: '#F3F4F6'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'slide-in-right': 'slideInRight 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(50px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideInRight: {
+                            '0%': { opacity: '0', transform: 'translateX(50px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased overflow-x-hidden relative">
+
+    <!-- Фоновые декоративные элементы -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"></div>
+        <div class="absolute top-40 right-10 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float" style="animation-delay: 2s"></div>
+        <div class="absolute -bottom-8 left-20 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float" style="animation-delay: 4s"></div>
+    </div>
+
+    <!-- Навигация -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-md shadow-lg" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center gap-2 group">
+                        <div class="w-10 h-10 bg-gradient-to-tr from-primary to-secondary rounded-lg flex items-center justify-center text-white transform group-hover:rotate-12 transition-transform">
+                            <i data-feather="gamepad-2"></i>
+                        </div>
+                        <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">GAMEIMPACT</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#hero" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium">Главная</a>
+                        <a href="#pros" class="hover:text-secondary transition-colors px-3 py-2 rounded-md text-sm font-medium">Плюсы</a>
+                        <a href="#cons" class="hover:text-red-500 transition-colors px-3 py-2 rounded-md text-sm font-medium">Минусы</a>
+                        <a href="#facts" class="hover:text-blue-500 transition-colors px-3 py-2 rounded-md text-sm font-medium">Факты</a>
+                        <a href="#tips" class="hover:text-green-500 transition-colors px-3 py-2 rounded-md text-sm font-medium">Советы</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-btn">
+                        <span class="sr-only">Open main menu</span>
+                        <i data-feather="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Мобильное меню -->
+        <div class="md:hidden hidden bg-white/95 backdrop-blur-xl absolute w-full" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t">
+                <a href="#hero" class="text-gray-800 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Главная</a>
+                <a href="#pros" class="text-gray-800 hover:text-secondary block px-3 py-2 rounded-md text-base font-medium">Плюсы</a>
+                <a href="#cons" class="text-gray-800 hover:text-red-500 block px-3 py-2 rounded-md text-base font-medium">Минусы</a>
+                <a href="#facts" class="text-gray-800 hover:text-blue-500 block px-3 py-2 rounded-md text-base font-medium">Факты</a>
+                <a href="#tips" class="text-gray-800 hover:text-green-500 block px-3 py-2 rounded-md text-base font-medium">Советы</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главный экран (Hero) -->
+    <section id="hero" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left animate-slide-up">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-primary text-sm font-semibold mb-6 border border-purple-200">
+                        <i data-feather="cpu" class="w-4 h-4"></i> Исследование 2026
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight mb-6">
+                        <span class="block text-gray-900">Влияние компьютерных игр</span>
+                        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">на подростков</span>
+                    </h1>
+                    <p class="mt-4 text-xl text-gray-600 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                        Узнайте правду о компьютерных играх. Мы разбираем плюсы, минусы и секреты здорового цифровой жизни.
+                    </p>
+                    <div class="mt-10 flex justify-center lg:justify-start gap-4">
+                        <a href="#pros" class="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-2">
+                            Узнать больше <i data-feather="arrow-down"></i>
+                        </a>
+                        <a href="#facts" class="px-8 py-4 bg-white text-gray-700 border border-gray-200 rounded-xl font-bold hover:bg-gray-50 transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-2">
+                            Факты <i data-feather="bar-chart-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative animate-slide-in-right hidden lg:block">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-3xl transform rotate-6"></div>
+                    <img src="https://img.freepik.com/premium-photo/group-teenagers-playing-video-games-together-with-serious-faces-social-gathering-aig62_31965-606227.jpg?semt=ais_hybrid&w=740" alt="Gaming Setup" class="relative rounded-3xl shadow-2xl border-4 border-white">
+                    
+                    <!-- Плавающие карточки -->
+                    <div class="absolute -bottom-10 -left-10 bg-white p-4 rounded-xl shadow-xl border border-gray-100 animate-float z-20">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-green-100 rounded-lg text-green-600">
+                                <i data-feather="thumbs-up"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Улучшение внимания</p>
+                                <p class="font-bold text-gray-800">+25%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute -top-5 -right-5 bg-white p-4 rounded-xl shadow-xl border border-gray-100 animate-float z-20" style="animation-delay: 1s;">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-blue-100 rounded-lg text-blue-600">
+                                <i data-feather="users"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Геймеров в мире</p>
+                                <p class="font-bold text-gray-800">3.2 млрд</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция Плюсов -->
+    <section id="pros" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-primary font-bold tracking-wide uppercase text-sm mb-2">Преимущества</h2>
+                <h3 class="text-3xl md:text-4xl font-extrabold text-gray-900">Позитивное влияние игр</h3>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group p-8 bg-gray-50 rounded-2xl hover:bg-gradient-to-br hover:from-primary hover:to-secondary transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 border border-gray-100">
+                    <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-6 group-hover:text-white group-hover:bg-white/20 transition-colors">
+                        <i data-feather="target" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-white">Развитие концентрации</h4>
+                    <p class="text-gray-600 group-hover:text-white/90">Экшн-игры тренируют способность быстро реагировать и фокусироваться на нескольких объектах одновременно.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group p-8 bg-gray-50 rounded-2xl hover:bg-gradient-to-br hover:from-primary hover:to-secondary transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 border border-gray-100">
+                    <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-6 group-hover:text-white group-hover:bg-white/20 transition-colors">
+                        <i data-feather="map" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-white">Пространственное мышление</h4>
+                    <p class="text-gray-600 group-hover:text-white/90">3D-шутеры и стратегии улучшают навигационные навыки и умение мыслить абстрактно.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group p-8 bg-gray-50 rounded-2xl hover:bg-gradient-to-br hover:from-primary hover:to-secondary transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 border border-gray-100">
+                    <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-6 group-hover:text-white group-hover:bg-white/20 transition-colors">
+                        <i data-feather="message-circle" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-white">Социальные связи</h4>
+                    <p class="text-gray-600 group-hover:text-white/90">Многопользовательские игры учат командной работе, коммуникации и лидерству.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="group p-8 bg-gray-50 rounded-2xl hover:bg-gradient-to-br hover:from-primary hover:to-secondary transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 border border-gray-100">
+                    <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-6 group-hover:text-white group-hover:bg-white/20 transition-colors">
+                        <i data-feather="book-open" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-white">Изучение языков</h4>
+                    <p class="text-gray-600 group-hover:text-white/90">Игры часто не переводят полностью, мотивируя подростков учить английский и другие языки.</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="group p-8 bg-gray-50 rounded-2xl hover:bg-gradient-to-br hover:from-primary hover:to-secondary transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 border border-gray-100">
+                    <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-6 group-hover:text-white group-hover:bg-white/20 transition-colors">
+                        <i data-feather="smile" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-white">Снятие стресса</h4>
+                    <p class="text-gray-600 group-hover:text-white/90">Игровой мир позволяет уйти от реальных проблем и восстановить эмоциональный баланс.</p>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="group p-8 bg-gray-50 rounded-2xl hover:bg-gradient-to-br hover:from-primary hover:to-secondary transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 border border-gray-100">
+                    <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-6 group-hover:text-white group-hover:bg-white/20 transition-colors">
+                        <i data-feather="git-merge" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-white">Принятие решений</h4>
+                    <p class="text-gray-600 group-hover:text-white/90">Сложные стратегии требуют взвешивания рисков и быстрого принятия решений в условиях неопределенности.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция Минусов -->
+    <section id="cons" class="py-20 bg-gray-50 relative overflow-hidden">
+        <!-- Декор -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-red-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2">
+                    <img src="https://re-feniks.ru/netcat_files/36/50/posledstviya_igrovoj_zavisimosti_0.jpg" alt="Sad Gamer" class="rounded-3xl shadow-2xl w-full object-cover transform hover:scale-[1.02] transition-transform duration-500">
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-red-500 font-bold tracking-wide uppercase text-sm mb-2">Риски</h2>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-8">Темная сторона игр</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4 p-4 bg-white rounded-xl shadow-sm border-l-4 border-red-500 hover:shadow-md transition-shadow">
+                            <div class="flex-shrink-0 pt-1">
+                                <i data-feather="clock" class="w-6 h-6 text-red-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900">Игровая зависимость</h4>
+                                <p class="text-gray-600 text-sm mt-1">Потеря чувства времени, отказ от реальной жизни, учебы и хобби ради игры.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 p-4 bg-white rounded-xl shadow-sm border-l-4 border-orange-500 hover:shadow-md transition-shadow">
+                            <div class="flex-shrink-0 pt-1">
+                                <i data-feather="activity" class="w-6 h-6 text-orange-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900">Проблемы со здоровьем</h4>
+                                <p class="text-gray-600 text-sm mt-1">Гиподинамия, нарушение осанки, ухудшение зрения и риск ожирения.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 p-4 bg-white rounded-xl shadow-sm border-l-4 border-yellow-500 hover:shadow-md transition-shadow">
+                            <div class="flex-shrink-0 pt-1">
+                                <i data-feather="zap" class="w-6 h-6 text-yellow-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900">Воздействие агрессии</h4>
+                                <p class="text-gray-600 text-sm mt-1">Жестокие игры могут снижать уровень эмпатии у чувствительных подростков.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Статистика и факты -->
+    <section id="facts" class="py-20 bg-gradient-to-b from-white to-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-blue-500 font-bold tracking-wide uppercase text-sm mb-2">Статистика</h2>
+                <h3 class="text-3xl md:text-4xl font-extrabold text-gray-900">Цифры и факты</h3>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-6 bg-white rounded-2xl shadow-lg border border-gray-100 transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-4xl font-bold text-primary mb-2" data-target="85">0%</div>
+                    <p class="text-gray-500 text-sm font-medium">Подростков играют</p>
+                </div>
+                <div class="p-6 bg-white rounded-2xl shadow-lg border border-gray-100 transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-4xl font-bold text-secondary mb-2" data-target="6">0ч</div>
+                    <p class="text-gray-500 text-sm font-medium">Среднее время игры</p>
+                </div>
+                <div class="p-6 bg-white rounded-2xl shadow-lg border border-gray-100 transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-4xl font-bold text-green-500 mb-2" data-target="90">0%</div>
+                    <p class="text-gray-500 text-sm font-medium">Родители беспокоятся</p>
+                </div>
+                <div class="p-6 bg-white rounded-2xl shadow-lg border border-gray-100 transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-4xl font-bold text-blue-500 mb-2" data-target="40">0%</div>
+                    <p class="text-gray-500 text-sm font-medium">Улучшают логику</p>
+                </div>
+            </div>
+
+            <!-- Список игр -->
+            <div class="mt-20">
+                <h3 class="text-2xl font-bold text-center text-gray-800 mb-10">Популярные жанры и их влияние</h3>
+                <div class="overflow-x-auto pb-4">
+                    <div class="flex space-x-6 min-w-max md:min-w-0 md:justify-center">
+                        <!-- Genre Card -->
+                        <div class="w-64 h-80 bg-white rounded-2xl shadow-lg overflow-hidden group relative cursor-pointer">
+                            <img src="https://i.ytimg.com/vi/8FMu5sVSHLk/maxresdefault.jpg" class="w-full h-1/2 object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="p-4">
+                                <span class="text-xs font-bold text-primary uppercase">MMORPG</span>
+                                <h4 class="font-bold text-lg mt-1">Онлайн-миры</h4>
+                                <p class="text-xs text-gray-500 mt-2">Социализация, командная работа, риск зависимости.</p>
+                            </div>
+                            <div class="absolute inset-0 bg-primary/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                  <a href="https://1drv.ms/w/c/3fadf9918c7deb3d/IQCJB8A2UhI0TKhCcnULftYXAU6wtqoncQMknXw-zn5KKac?e=qmM8jL" target="_blank" target="_blank" class="text-white font-bold">Подробнее</a>
+                            </div>
+                        </div>
+
+                        <!-- Genre Card -->
+                        <div class="w-64 h-80 bg-white rounded-2xl shadow-lg overflow-hidden group relative cursor-pointer">
+                            <img src="https://i.ytimg.com/vi/OeP7u94WoZo/maxresdefault.jpg" class="w-full h-1/2 object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="p-4">
+                                <span class="text-xs font-bold text-secondary uppercase">Shooter</span>
+                                <h4 class="font-bold text-lg mt-1">Шутеры</h4>
+                                <p class="text-xs text-gray-500 mt-2">Реакция, внимание, стресс.</p>
+                            </div>
+                            <div class="absolute inset-0 bg-secondary/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                  <a href="https://1drv.ms/w/c/3fadf9918c7deb3d/IQBHIKQkQHZzS6g91mAPEREsAVBXvtwdPfWe4VjcoAAD0LM?e=tuvZ74" target="_blank" class="text-white font-bold">Подробнее</a>
+                            </div>
+                        </div>
+
+                        <!-- Genre Card -->
+                        <div class="w-64 h-80 bg-white rounded-2xl shadow-lg overflow-hidden group relative cursor-pointer">
+                            <img src="https://i.ytimg.com/vi/0J1qdVw297A/maxresdefault.jpg" class="w-full h-1/2 object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="p-4">
+                                <span class="text-xs font-bold text-blue-500 uppercase">Puzzle</span>
+                                <h4 class="font-bold text-lg mt-1">Головоломки</h4>
+                                <p class="text-xs text-gray-500 mt-2">Логика, память, спокойствие.</p>
+                            </div>
+                            <div class="absolute inset-0 bg-blue-500/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                  <a href="https://1drv.ms/w/c/3fadf9918c7deb3d/IQAGq_ZFw2gcRYMfyDiJlV1fAVaDghx5VrdJguM_oCfLHTA?e=KimAki" target="_blank" class="text-white font-bold">Подробнее</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Советы -->
+    <section id="tips" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-green-500 font-bold tracking-wide uppercase text-sm mb-2">Рекомендации</h2>
+                <h3 class="text-3xl md:text-4xl font-extrabold text-gray-900">Как сохранить баланс?</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tip 1 -->
+                <div class="bg-gradient-to-br from-green-50 to-teal-50 p-8 rounded-2xl border border-green-100 relative overflow-hidden group">
+                    <div class="absolute -right-6 -top-6 w-24 h-24 bg-green-100 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl mb-6">1</div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-3">Правило таймера</h4>
+                        <p class="text-gray-600">Договоритесь о конкретном времени игры (например, 1-2 часа в день) и используйте таймер, чтобы не забывать о перерывах.</p>
+                    </div>
+                </div>
+
+                <!-- Tip 2 -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl border border-blue-100 relative overflow-hidden group">
+                    <div class="absolute -right-6 -top-6 w-24 h-24 bg-blue-100 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl mb-6">2</div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-3">Активный отдых</h4>
+                        <p class="text-gray-600">За каждый час игры — 15 минут активной физической нагрузки или прогулки на свежем воздухе для разминки глаз и спины.</p>
+                    </div>
+                </div>
+
+                <!-- Tip 3 -->
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-2xl border border-purple-100 relative overflow-hidden group">
+                    <div class="absolute -right-6 -top-6 w-24 h-24 bg-purple-100 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-xl mb-6">3</div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-3">Играйте вместе</h4>
+                        <p class="text-gray-600">Родителям стоит интересоваться играми детей. Совместные сессии помогают доверительнее общаться и контролировать контент.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-gray-900 rounded-3xl p-10 text-white text-center shadow-2xl relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20"></div>
+                <div class="relative z-10 max-w-2xl mx-auto">
+                    <i data-feather="shield" class="w-12 h-12 mx-auto mb-6 text-secondary"></i>
+                    <h3 class="text-2xl font-bold mb-4">Главный совет</h3>
+                    <p class="text-gray-300 mb-8 text-lg">"Игра — это не враг, а инструмент. Главное — научиться им пользоваться так, чтобы он обогащал жизнь, а не заменял её."</p>
+                    <a href="#" class="inline-block px-6 py-3 bg-secondary text-white rounded-lg font-bold hover:bg-pink-600 transition-colors">Подписаться на рассылку</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-tr from-primary to-secondary rounded-md flex items-center justify-center text-white">
+                            <i data-feather="gamepad-2" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-xl font-bold text-gray-900">GAMEIMPACT</span>
+                    </div>
+                    <p class="text-gray-500 max-w-sm">
+                        Образовательный проект о влиянии цифровой культуры на развитие современного подростка. Мы за осознанный гейминг.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4">Навигация</h4>
+                    <ul class="space-y-2 text-gray-500">
+                        <li><a href="#pros" class="hover:text-primary transition-colors">Плюсы</a></li>
+                        <li><a href="#cons" class="hover:text-primary transition-colors">Минусы</a></li>
+                        <li><a href="#facts" class="hover:text-primary transition-colors">Статистика</a></li>
+                        <li><a href="#tips" class="hover:text-primary transition-colors">Советы</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4">Контакты</h4>
+                    <ul class="space-y-2 text-gray-500">
+                        <li class="flex items-center gap-2"><i data-feather="mail" class="w-4 h-4"></i> alenabajitova@gmail.ru</li>
+                        <li class="flex items-center gap-2"><i data-feather="phone" class="w-4 h-4"></i> +7 (919) 631-00-00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-100 pt-8 text-center text-gray-400 text-sm">
+                <p>&copy; 2026 GAMEIMPACT. Все права защищены. Сделано с ❤️ для подростков и родителей.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="components/navbar.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+<script src="components/navbar.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+
+    <!-- Счётчики -->
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const counters = document.querySelectorAll("[data-target]");
+        const speed = 200; // чем меньше — тем быстрее
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const target = +counter.dataset.target;
+                const isPercent = counter.innerText.includes("%");
+                const isHours = counter.innerText.includes("ч");
+                let current = 0;
+
+                const updateCount = () => {
+                    const increment = Math.ceil(target / speed);
+                    if (current < target) {
+                        current += increment;
+                        counter.innerText = current + (isPercent ? "%" : isHours ? "ч" : "");
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.innerText = target + (isPercent ? "%" : isHours ? "ч" : "");
+                    }
+                };
+
+                updateCount();
+            });
+        };
+
+        // запуск при появлении секции на экране
+        const observer = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+                animateCounters();
+                observer.disconnect();
+            }
+        }, { threshold: 0.3 });
+
+        observer.observe(document.querySelector("#facts"));
+    });
+    </script>
+</body>
+</html>
